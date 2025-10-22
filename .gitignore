@@ -1,0 +1,33 @@
+# Build outputs
+bin/
+obj/
+
+# User-specific files
+*.user
+*.suo
+*.userprefs
+*.vs/
+
+# Temporary files
+*.tmp
+*.log
+*.bak
+*.swp
+*.DS_Store
+Thumbs.db
+
+# Package restore folders
+packages/
+
+# Security-sensitive configuration
+appsettings.json
+*.env
+
+# Generated artifacts
+*.generated.cs
+*.designer.cs
+
+# Local database files
+*.mdf
+*.ldf
+*.db
