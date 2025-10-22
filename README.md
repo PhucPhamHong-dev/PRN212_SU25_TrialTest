@@ -1,23 +1,6 @@
 <p align="center">
-  <svg xmlns="http://www.w3.org/2000/svg" width="720" height="180" viewBox="0 0 720 180">
-    <defs>
-      <linearGradient id="textGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stop-color="#1e3a8a"/>
-        <stop offset="100%" stop-color="#06b6d4"/>
-      </linearGradient>
-    </defs>
-    <text x="50%" y="55%" font-family="Segoe UI, Arial, sans-serif" font-size="36" font-weight="bold"
-          fill="url(#textGradient)" text-anchor="middle">
-      PRN212 SU25 Practice Exercise
-    </text>
-    <text x="50%" y="75%" font-family="Segoe UI, Arial, sans-serif" font-size="18"
-          fill="url(#textGradient)" text-anchor="middle">
-      JLPT Mock Test Management - WPF - SQL Server - EF Core
-    </text>
-  </svg>
+  <img src="docs/banner.svg" width="720"/>
 </p>
-
-
 
 ## [Assignment](docs/PE_PRN212_SU25_JLPT.jpeg)
 This repository contains the practice implementation for the PE PRN212 SU25 hands-on exam.  
