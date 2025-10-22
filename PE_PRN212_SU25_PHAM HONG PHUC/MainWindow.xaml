@@ -1,0 +1,268 @@
+﻿<Window x:Class="PE_PRN212_SU25_PHAM_HONG_PHUC.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        Title="JLPT Mock Test Management - SU2025"
+        Height="500" Width="900"
+        FontFamily="Arial" Background="#FFBAE6FD">
+
+    <Window.Resources>
+        <!-- Labels -->
+        <Style TargetType="Label">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Foreground" Value="#FF1E3A8A"/>
+            <Setter Property="Margin" Value="0,6,0,2"/>
+        </Style>
+
+        <!-- Inputs -->
+        <Style TargetType="TextBox">
+            <Setter Property="Height" Value="34"/>
+            <Setter Property="Background" Value="#FFF0F9FF"/>
+            <Setter Property="Margin" Value="0,0,0,12"/>
+            <Setter Property="Padding" Value="8,4"/>
+        </Style>
+        <Style TargetType="PasswordBox">
+            <Setter Property="Height" Value="34"/>
+            <Setter Property="Background" Value="#FFF0F9FF"/>
+            <Setter Property="Margin" Value="0,0,0,12"/>
+            <Setter Property="Padding" Value="8,4"/>
+        </Style>
+
+        <!-- Buttons -->
+        <Style TargetType="Button">
+            <Setter Property="Padding" Value="10,6"/>
+            <Setter Property="Background" Value="#FF06B6D4"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Height" Value="36"/>
+            <Setter Property="Width" Value="140"/>
+            <Setter Property="Margin" Value="0,8,12,0"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style>
+
+        <!-- DataGrid -->
+        <Style TargetType="DataGrid">
+            <Setter Property="AutoGenerateColumns" Value="False"/>
+            <Setter Property="HeadersVisibility" Value="All"/>
+            <Setter Property="GridLinesVisibility" Value="Horizontal"/>
+            <Setter Property="RowHeight" Value="30"/>
+            <Setter Property="CanUserAddRows" Value="False"/>
+            <Setter Property="CanUserDeleteRows" Value="False"/>
+            <Setter Property="CanUserResizeRows" Value="False"/>
+            <Setter Property="SelectionMode" Value="Single"/>
+            <Setter Property="AlternationCount" Value="2"/>
+        </Style>
+        <SolidColorBrush x:Key="GridHeaderBrush" Color="#FF1E3A8A"/>
+        <Style TargetType="DataGridColumnHeader">
+            <Setter Property="Background" Value="{StaticResource GridHeaderBrush}"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Height" Value="34"/>
+        </Style>
+
+        <!-- Cách thay SelectionBrush: style row khi được chọn -->
+        <Style TargetType="DataGridRow">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Style.Triggers>
+                <Trigger Property="IsSelected" Value="True">
+                    <Setter Property="Background" Value="#3306B6D4"/>
+                    <!-- xanh nhạt -->
+                    <Setter Property="Foreground" Value="Black"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+
+    <!-- Layout tổng -->
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="56"/>
+            <!-- Header -->
+            <RowDefinition Height="*"/>
+            <!-- Nội dung -->
+        </Grid.RowDefinitions>
+
+        <!-- Header/App bar: dùng Border để có Padding -->
+        <Border Grid.Row="0" Background="#FF1E3A8A" Padding="16">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="420"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                    <TextBlock Text="JLPT Mock Test Management" Foreground="White"
+                               FontSize="18" FontWeight="Bold"/>
+                    <!-- thay Spacing bằng Margin cho phần tử thứ 2 -->
+                    <TextBlock Text="• SU2025" Foreground="#B3FFFFFF" FontSize="14" Margin="8,3,0,0"/>
+                </StackPanel>
+
+                <!-- Ô tìm kiếm -->
+                <!-- Ô tìm kiếm trong header -->
+                <Grid Grid.Column="1" VerticalAlignment="Center">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!-- Ô nhập search -->
+                    <TextBox x:Name="txtSearch"
+             Height="32"
+             Grid.Column="0"
+             Background="#FFF0F9FF"
+             Padding="10,4"
+             Margin="0,0,140,0"
+             VerticalAlignment="Center"
+             ToolTip="Search by title, candidate..." Grid.ColumnSpan="2"
+             />
+
+                    <!-- Nút Search -->
+                    <Button x:Name="btnSearch"
+            Grid.Column="1"
+            Content="Search"
+            Height="32"
+            Margin="8,0,0,0"
+            Click="btnSearch_Click"
+            />
+                </Grid>
+            </Grid>
+        </Border>
+
+        <!-- Nội dung: 2 cột -->
+        <Grid Grid.Row="1" Margin="16">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="3*"/>
+                <!-- Bảng -->
+                <ColumnDefinition Width="2*"/>
+                <!-- Form -->
+            </Grid.ColumnDefinitions>
+
+            <!-- Card DataGrid -->
+            <Border Grid.Column="0" Background="White" CornerRadius="10" Padding="12" Margin="0,0,12,0">
+                <Border.Effect>
+                    <DropShadowEffect BlurRadius="12" ShadowDepth="0" Opacity="0.18"/>
+                </Border.Effect>
+
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Text="Mock Tests" FontSize="18" FontWeight="Bold"
+                               Foreground="#FF1E3A8A" Margin="4,0,0,8"/>
+
+                    <DataGrid x:Name="dgMockTest" Grid.Row="1"
+                              SelectionChanged="dgMockTest_SelectionChanged"
+                              AlternatingRowBackground="#FFF0F9FF"
+                              BorderThickness="0" HeadersVisibility="All">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="TestID" Width="60" Binding="{Binding TestId}"/>
+                            <DataGridTextColumn Header="TestTitle" Width="*" Binding="{Binding TestTitle}"/>
+                            <DataGridTextColumn Header="SkillArea" Width="120" Binding="{Binding SkillArea}"/>
+                            <DataGridTextColumn Header="StartTime" Width="100" Binding="{Binding StartTime}"/>
+                            <DataGridTextColumn Header="EndTime" Width="100" Binding="{Binding EndTime}"/>
+                            <DataGridTextColumn Header="CandidateId" Width="110" Binding="{Binding Candidate.CandidateId}"/>
+                            <DataGridTextColumn Header="FullName" Width="160" Binding="{Binding Candidate.FullName}"/>
+                            <DataGridTextColumn Header="Score" Width="70" Binding="{Binding Score}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+
+                    <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
+                        <Button x:Name="btnDelete" Content="Delete" Click="btnDelete_Click"
+                                Background="#FFE57373" Foreground="White"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+            <!-- Card Form chi tiết -->
+            <Border Grid.Column="1" Background="White" CornerRadius="10" Padding="16" Margin="12,0,0,0">
+                <Border.Effect>
+                    <DropShadowEffect BlurRadius="12" ShadowDepth="0" Opacity="0.18"/>
+                </Border.Effect>
+
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Text="Details" FontSize="18" FontWeight="Bold"
+                                   Foreground="#FF1E3A8A" Margin="4,0,0,8"/>
+
+                        <!-- Form -->
+                        <Grid Grid.Row="1" Margin="0,4,0,0">
+                            <!-- 2 cột: Nhãn | Input -->
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="140"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <!-- ✅ THÊM HÀNG CHO MỖI DÒNG -->
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <!-- 0: Title -->
+                                <RowDefinition Height="Auto"/>
+                                <!-- 1: Skill -->
+                                <RowDefinition Height="Auto"/>
+                                <!-- 2: Start -->
+                                <RowDefinition Height="Auto"/>
+                                <!-- 3: End -->
+                                <RowDefinition Height="Auto"/>
+                                <!-- 4: Candidate -->
+                                <RowDefinition Height="Auto"/>
+                                <!-- 5: Score -->
+                            </Grid.RowDefinitions>
+
+                            <!-- DÒNG 0 -->
+                            <Label Grid.Column="0" Grid.Row="0" Content="Test Title"/>
+                            <TextBox Grid.Column="1" Grid.Row="0" x:Name="txtTestTitle"
+             HorizontalAlignment="Stretch"/>
+
+                            <!-- DÒNG 1 -->
+                            <Label Grid.Column="0" Grid.Row="1" Content="Skill Area"/>
+                            <TextBox Grid.Column="1" Grid.Row="1" x:Name="txtSkillArea"
+             HorizontalAlignment="Stretch"/>
+
+                            <!-- DÒNG 2 -->
+                            <Label Grid.Column="0" Grid.Row="2" Content="Start Time (HH:mm)"/>
+                            <TextBox Grid.Column="1" Grid.Row="2" x:Name="txtStartTime"
+             HorizontalAlignment="Stretch"/>
+
+                            <!-- DÒNG 3 -->
+                            <Label Grid.Column="0" Grid.Row="3" Content="End Time (HH:mm)"/>
+                            <TextBox Grid.Column="1" Grid.Row="3" x:Name="txtEndTime"
+             HorizontalAlignment="Stretch"/>
+
+                            <!-- DÒNG 4 -->
+                            <Label Grid.Column="0" Grid.Row="4" Content="Candidate"/>
+                            <ComboBox Grid.Column="1" Grid.Row="4" x:Name="cbCandidate"
+              DisplayMemberPath="FullName" SelectedValuePath="CandidateId"
+              Height="34" Background="#FFF0F9FF" Margin="0,0,0,12"
+              HorizontalAlignment="Stretch"/>
+
+                            <!-- DÒNG 5 -->
+                            <Label Grid.Column="0" Grid.Row="5" Content="Score"/>
+                            <TextBox Grid.Column="1" Grid.Row="5" x:Name="txtScore"
+             HorizontalAlignment="Stretch"/>
+                        </Grid>
+
+                        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
+                            <Button x:Name="btnAdd" Content="Add Mock Test" Click="btnAdd_Click"/>
+                            <Button x:Name="btnUpdate" Content="Update Mock Test" Click="btnUpdate_Click"/>
+                        </StackPanel>
+                    </Grid>
+                </ScrollViewer>
+            </Border>
+        </Grid>
+    </Grid>
+</Window>

@@ -1,0 +1,105 @@
+﻿<Window x:Class="PE_PRN212_SU25_PHAM_HONG_PHUC.LoginWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        Title="Login Window - SU 2025"
+        Height="400" Width="700"
+        FontFamily="Arial" FontSize="24"
+        Background="#FFBAE6FD">
+
+    <!-- STYLES -->
+    <Window.Resources>
+        <Style TargetType="Label">
+            <Setter Property="FontSize" Value="26"/>
+            <Setter Property="Foreground" Value="#FF1E3A8A"/>
+        </Style>
+
+        <Style TargetType="TextBox">
+            <Setter Property="Height" Value="34"/>
+            <Setter Property="Background" Value="#FFF0F9FF"/>
+            <Setter Property="Margin" Value="0,6,0,16"/>
+        </Style>
+
+        <Style TargetType="PasswordBox">
+            <Setter Property="Height" Value="34"/>
+            <Setter Property="Background" Value="#FFF0F9FF"/>
+            <Setter Property="Margin" Value="0,6,0,16"/>
+        </Style>
+
+        <Style TargetType="Button">
+            <Setter Property="Padding" Value="10"/>
+            <Setter Property="Background" Value="#FF06B6D4"/>
+            <Setter Property="Foreground" Value="#FFFFFFFF"/>
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Margin" Value="0,8,0,0"/>
+            <Setter Property="Width" Value="130"/>
+            <!-- ✅ Đặt chiều rộng cố định để 2 nút bằng nhau -->
+            <Setter Property="Height" Value="40"/>
+            <!-- ✅ Thêm chiều cao thống nhất -->
+        </Style>
+    </Window.Resources>
+
+    <!-- LAYOUT -->
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="3*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Banner trái -->
+        <Grid Grid.Column="0" Background="#FF1E3A8A">
+            <Grid.Effect>
+                <DropShadowEffect BlurRadius="8" ShadowDepth="0" Opacity="0.25"/>
+            </Grid.Effect>
+            <StackPanel VerticalAlignment="Center" Margin="24">
+                <TextBlock Text="JLPT MockTest APP" FontWeight="Bold" FontSize="36" Foreground="White"/>
+                <TextBlock Text="Welcome back 👋" FontSize="18" Margin="0,6,0,0" Foreground="#B3FFFFFF"/>
+                <Rectangle Height="4" Width="120" Fill="#FF06B6D4" Margin="0,16,0,0" RadiusX="2" RadiusY="2"/>
+            </StackPanel>
+        </Grid>
+
+        <!-- Card đăng nhập -->
+        <Border Grid.Column="1" CornerRadius="12" Background="White" Padding="28" Margin="28"
+                HorizontalAlignment="Stretch" VerticalAlignment="Center">
+            <Border.Effect>
+                <DropShadowEffect BlurRadius="14" ShadowDepth="0" Opacity="0.18"/>
+            </Border.Effect>
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <StackPanel Grid.Row="0" Margin="0,0,0,12">
+                    <TextBlock Text="Sign in" FontWeight="Bold" FontSize="28" Foreground="#FF1E3A8A"/>
+                    <TextBlock Text="Use your account to continue" FontSize="14" Foreground="#7A7A7A"/>
+                </StackPanel>
+
+                <StackPanel Grid.Row="1">
+                    <Label Content="Email"/>
+                    <TextBox x:Name="txtEmail" Text="admin@jlpt.com"/>
+                </StackPanel>
+
+                <StackPanel Grid.Row="2">
+                    <Label Content="Password"/>
+                    <PasswordBox x:Name="txtPassword"/>
+                </StackPanel>
+
+               
+
+                <!-- HÀNG NÚT -->
+                <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,12,0,0" Width="154">
+                    <Button x:Name="btnLogin" Content="Login" Click="btnLogin_Click"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+    </Grid>
+</Window>
